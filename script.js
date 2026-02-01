@@ -1,18 +1,16 @@
 /* ================================
-   🔄 RESET STATE ON RELOAD (INDEX)
+   🔄 RESET STATE ON SITE START (CHROME SAFE)
 ================================ */
-const nav = performance.getEntriesByType("navigation")[0];
-
 if (
-    nav && nav.type === "reload" &&
-    (window.location.pathname.endsWith("index.html") ||
-     window.location.pathname.endsWith("/Valentine/") ||
-     window.location.pathname.endsWith("/"))
+    window.location.pathname.endsWith("index.html") ||
+    window.location.pathname.endsWith("/Valentine/") ||
+    window.location.pathname.endsWith("/")
 ) {
     localStorage.removeItem("musicPlaying");
     localStorage.removeItem("musicTime");
     localStorage.removeItem("fadeAfterYes");
 }
+
 
 
 /* ================================
