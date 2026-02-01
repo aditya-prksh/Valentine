@@ -1,4 +1,19 @@
 /* ================================
+   🔄 RESET STATE ON RELOAD (INDEX)
+================================ */
+if (
+    (window.location.pathname.endsWith("index.html") ||
+     window.location.pathname.endsWith("/Valentine/") ||
+     window.location.pathname.endsWith("/")) &&
+    performance.navigation.type === performance.navigation.TYPE_RELOAD
+) {
+    localStorage.removeItem("musicPlaying");
+    localStorage.removeItem("musicTime");
+    localStorage.removeItem("fadeAfterYes");
+}
+
+
+/* ================================
    NO BUTTON RUN AWAY
 ================================ */
 function moveRandomElement(elm) {
