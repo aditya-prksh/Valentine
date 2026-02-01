@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Her Out</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="tenor-gif-embed"
+         data-postid="253027946666209433"
+         data-share-method="host"
+         data-aspect-ratio="1.37853"
+         data-width="100%">
+        <a href="https://tenor.com/view/mochi-cat-mochi-and-goma-goma-and-peach-mochi-mochi-peach-cat-gif-gif-253027946666209433">
+            Mochi Cat GIF
+        </a>
+        from <a href="https://tenor.com/search/mochi-gifs">Mochi GIFs</a>
+    </div>
+
+    <script async src="https://tenor.com/embed.js"></script>
+
+    <h1>
+        Hehehe, I knew it!! 🙈 <br>
+        I LOVE YOU SO MUCH!!! ❤️❤️❤️
+    </h1>
+</div>
+
+<script>
+/* 💥 Explosion when YES page loads */
+window.addEventListener("load", () => {
+    for (let i = 0; i < 60; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+
+        const colors = ["#9B111E", "#ff416c", "#ff4b2b", "#fbc2eb"];
+        confetti.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+
+        confetti.style.setProperty("--x", `${Math.random() * 800 - 400}px`);
+        confetti.style.setProperty("--y", `${Math.random() * 800 - 400}px`);
+
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1500);
+    }
+});
+</script>
+<!-- 🎶 Audio (ALLOW music to continue) -->
+<audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ✅ Script (needed for fade-after-10s logic) -->
+<script src="./script.js"></script>
+
+
+</body>
+</html>
