@@ -1,11 +1,13 @@
 /* ================================
    🔄 RESET STATE ON RELOAD (INDEX)
 ================================ */
+const nav = performance.getEntriesByType("navigation")[0];
+
 if (
+    nav && nav.type === "reload" &&
     (window.location.pathname.endsWith("index.html") ||
      window.location.pathname.endsWith("/Valentine/") ||
-     window.location.pathname.endsWith("/")) &&
-    performance.navigation.type === performance.navigation.TYPE_RELOAD
+     window.location.pathname.endsWith("/"))
 ) {
     localStorage.removeItem("musicPlaying");
     localStorage.removeItem("musicTime");
