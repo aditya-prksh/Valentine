@@ -1,20 +1,5 @@
 /* ================================
-   🔄 RESET STATE ON SITE START (CHROME SAFE)
-================================ */
-if (
-    window.location.pathname.endsWith("index.html") ||
-    window.location.pathname.endsWith("/Valentine/") ||
-    window.location.pathname.endsWith("/")
-) {
-    localStorage.removeItem("musicPlaying");
-    localStorage.removeItem("musicTime");
-    localStorage.removeItem("fadeAfterYes");
-}
-
-
-
-/* ================================
-   NO BUTTON RUN AWAY
+   😈 NO BUTTON RUN AWAY
 ================================ */
 function moveRandomElement(elm) {
     elm.style.position = "absolute";
@@ -30,7 +15,7 @@ if (noBtn) {
 }
 
 /* ================================
-   MUSIC OVERLAY & AUDIO
+   🎶 MUSIC OVERLAY & AUDIO
 ================================ */
 const overlay = document.getElementById("music-overlay");
 const bgMusic = document.getElementById("bg-music");
@@ -39,58 +24,45 @@ const bgMusic = document.getElementById("bg-music");
 if (overlay && bgMusic) {
     overlay.addEventListener("click", () => {
 
-    /* 💖 HEART BLAST */
-    for (let i = 0; i < 30; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.textContent = "❤";
+        /* 💖 HEART BLAST */
+        for (let i = 0; i < 30; i++) {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.textContent = "❤";
 
-        heart.style.setProperty("--x", `${Math.random() * 600 - 300}px`);
-        heart.style.setProperty("--y", `${Math.random() * 600 - 300}px`);
+            heart.style.setProperty("--x", `${Math.random() * 600 - 300}px`);
+            heart.style.setProperty("--y", `${Math.random() * 600 - 300}px`);
 
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 900);
-    }
-
-    /* 🎶 START MUSIC */
-    bgMusic.currentTime = 175; // change if needed
-    bgMusic.volume = 0.6;
-    bgMusic.play().catch(() => {});
-    localStorage.setItem("musicPlaying", "true");
-
-    /* ✨ REMOVE OVERLAY */
-    overlay.style.display = "none";
-});
-}
-
-
-/* Resume music on page load (if already started) */
-if (bgMusic && localStorage.getItem("musicPlaying") === "true") {
-    const savedTime = localStorage.getItem("musicTime");
-    bgMusic.volume = 0.6;
-
-    if (savedTime) {
-        bgMusic.currentTime = parseFloat(savedTime);
-    }
-
-    bgMusic.play().catch(() => {});
-}
-
-/* Save current playback time */
-if (bgMusic) {
-    setInterval(() => {
-        if (!bgMusic.paused) {
-            localStorage.setItem("musicTime", bgMusic.currentTime);
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 900);
         }
-    }, 1000);
+
+        /* 🎶 START MUSIC */
+        bgMusic.currentTime = 175; // start time (change if needed)
+        bgMusic.volume = 0.6;
+        bgMusic.play().catch(() => {});
+
+        sessionStorage.setItem("musicPlaying", "true");
+
+        /* ✨ REMOVE OVERLAY */
+        overlay.style.display = "none";
+    });
 }
 
-/* 🔓 Resume music on FIRST click on NO pages */
+/* ================================
+   🔁 RESUME MUSIC ACROSS PAGES
+================================ */
+if (bgMusic && sessionStorage.getItem("musicPlaying") === "true") {
+    bgMusic.volume = 0.6;
+    bgMusic.play().catch(() => {});
+}
+
+/* 🔓 Resume music on FIRST click on NO pages (browser rule) */
 document.addEventListener("click", () => {
     if (
         bgMusic &&
         bgMusic.paused &&
-        localStorage.getItem("musicPlaying") === "true"
+        sessionStorage.getItem("musicPlaying") === "true"
     ) {
         bgMusic.volume = 0.6;
         bgMusic.play().catch(() => {});
@@ -120,20 +92,20 @@ document.querySelectorAll('a[href*="yes"]').forEach(btn => {
             setTimeout(() => confetti.remove(), 900);
         }
 
-        // Mark YES clicked (for fade later)
-        localStorage.setItem("fadeAfterYes", "true");
+        /* Mark YES clicked */
+        sessionStorage.setItem("fadeAfterYes", "true");
 
-        // 🚀 Navigate immediately (NO DELAY)
+        /* 🚀 Navigate immediately */
         window.location.href = btn.href;
     });
 });
 
 /* ================================
-   FADE MUSIC 10s AFTER YES PAGE LOAD
+   🎶 FADE MUSIC 10s AFTER YES PAGE LOAD
 ================================ */
 if (
     window.location.pathname.includes("yes.html") &&
-    localStorage.getItem("fadeAfterYes") === "true"
+    sessionStorage.getItem("fadeAfterYes") === "true"
 ) {
     setTimeout(() => {
         if (!bgMusic) return;
@@ -147,12 +119,11 @@ if (
                 bgMusic.pause();
                 bgMusic.volume = 0;
 
-                localStorage.removeItem("musicPlaying");
-                localStorage.removeItem("musicTime");
-                localStorage.removeItem("fadeAfterYes");
+                sessionStorage.removeItem("musicPlaying");
+                sessionStorage.removeItem("fadeAfterYes");
             } else {
                 bgMusic.volume = vol;
             }
         }, 100);
-    }, 10000); // ⏱️ 10 seconds AFTER YES page loads
+    }, 10000); // ⏱️ 10 seconds after YES page loads
 }
