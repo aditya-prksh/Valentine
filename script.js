@@ -49,12 +49,8 @@ if (overlay && bgMusic) {
 }
 
 
-/* Resume music on page load (EXCEPT index overlay page) */
-if (
-    bgMusic &&
-    localStorage.getItem("musicPlaying") === "true" &&
-    !document.getElementById("music-overlay")
-) {
+/* Resume music on page load (if already started) */
+if (bgMusic && localStorage.getItem("musicPlaying") === "true") {
     const savedTime = localStorage.getItem("musicTime");
     bgMusic.volume = 0.6;
 
@@ -64,7 +60,6 @@ if (
 
     bgMusic.play().catch(() => {});
 }
-
 
 /* Save current playback time */
 if (bgMusic) {
